@@ -1,0 +1,14 @@
+Total number of pages: 183811
+Pages with zero in-links: 14350
+Pages with zero out-links: 66175
+
+Initial page rank = 5.44037081567e-06
+Pages above the intital page rank = 39314 (last one being WT18-B31-273 with page rank: 5.44132331441e-06)
+Pages below the initial page rank = 183811 - 39314 = 144497
+
+-> the proportion of pages with no in-links (sources): 14350/183811 = 0.0780693212049333
+
+-> the proportion of pages with no out-links (sinks): 66175/183811 = 0.3600165387272797
+
+-> the proportion of pages whose PageRank is less than their initial = 144497/183811 = 0.7861172617525611
+
