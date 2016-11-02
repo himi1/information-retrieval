@@ -1,0 +1,55 @@
+A SHORT REPORT DESCRIBING IMPLEMENTATION:
+
+For this assingment I implemented a small search engine, involving the following steps:
+1. Indexing of input corpus
+2. Retrieval of ranked list of documents according to the queries
+
+1. INDEXING OF INPUT CORPUS:
+It's done using indexer.py in the following way:
+a. extract_from_input(input_corpus_file):
+-> input: #1 hello world #2 hi all
+-> I first divided the full corpus into list of list of each docid and words corresponding to each docid comprising one entry in the list. ie. 
+[[1, hello, world], [2, hi, all]]
+-> Then, I created a doc_to_token dictionary using the above list with docid as key and all the words(ignoring any tokens that contain only the digits 0-9) associated with it as values.
+output: {1: [hello, world], 2: [hi, all]}
+
+b. compute_index(doc_to_token)
+-> doc_to_token created in step a
+-> created a word_to_freq dictionary containing word as key and its frequency as value, by using values of doc_to_token
+-> Finally creating an index dictionary containing the inverted index in format {'word':[('docid',freq),('docid',freq), ....]}
+using this word_to_freq dictionary and keys from previously made doc_to_token(keys are the docid for doc_to_token)
+output: {'hello':[1, 1], 'world':[1, 1], 'hi':[2, 1], 'all':[2, 1]}
+
+c. write_index_to_file(output_file)
+Wrote the index dictionary to the output_file i.e. index_file
+
+2. RETRIEVAL:
+For rankig documents, BM25 scores are calculated by implementing BM25 algorithm for each query in the input query file
+Saved constants for the bm25 algo:
+b = 0.75
+k1 = 1.2
+k2 = 100
+R = 0.0 # Assuming that no relevance information is available
+
+a. retrieve_inverted_lists(index_file)
+-> the inverted index is retrieved from the index_file(created in step 1 above) to index dictionary
+
+b. input_query(query_file)
+-> queries from query_file are retrieved to a query_list
+
+c. cal_avg_length()
+-> doc_ids_to_tf dictionary containing the docid as key and all unique words' term frequency as values, is created using index dictionary
+-> Average doc length avdl is calculated by dividng the count of values in index dictionary with length of doc_ids_to_tf dictionary
+
+c. bm25_ranker(query_list)
+->  Each query from query_list is passed to bm25_for_each_query function, and the results are collected and saved to result_list
+
+d. def bm25_for_each_query(query):
+-> The query is divided into words and each word is processed seperately
+-> A word_to_docid_n_freq dictionary containing word as keys and the docid and frequency for the given word is created using index dictionary(if it's present in the index)
+-> Finally bm25 score is calculated for each word in the query, for each doc_id present in the word_to_docid_n_freq dictionary created for the specified word
+-> All the scores corresponding to each docid for words in the query are saved in doc_to_score dictionary containing the docid as key and it's score as values, which are sent back to step c, where all the scores are combined and returned to result_list
+
+e. Finally each entry in the result_list is sorted, and output is printed in the given format
+
+
