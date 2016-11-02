@@ -1,0 +1,10 @@
+Output for Query 12:
+P@100 for query 12 is 0.04
+P@20: 0.15
+Output for Query 13:
+P@100 for query 13 is 0.07
+P@20: 0.25
+Output for Query 19:
+P@100 for query 19 is 0.1
+P@20: 0.45
+MAP for all the queries: 0.41467527137
